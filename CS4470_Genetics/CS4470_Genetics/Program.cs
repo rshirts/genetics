@@ -10,7 +10,7 @@ namespace CS4470_Genetics
     {
         static void Main(string[] args)
         {
-            string targetString = "this";
+            string targetString = "Match this string";
             int maxPopulation = 200;
             double mutationRate = 0.05;
 

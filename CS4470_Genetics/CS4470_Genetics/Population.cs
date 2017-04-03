@@ -11,8 +11,8 @@ namespace CS4470_Genetics
     /// including methods to manipulate it.
     /// </summary>
     class Population
-    { 
-        List<DNA> currentPopulation = new List<DNA>();
+    {
+        List<DNA> currentPopulation;
         String targetGoal;
         double mutationRate;
         List<DNA> matingPool;
@@ -20,14 +20,21 @@ namespace CS4470_Genetics
         public DNA bestFitnessDNA = null;
         double bestFitnessLevel = 0;
         public bool targetFound = false;
-        Random r = new Random();
+        public static Random r = new Random();
 
         //Create the initial population.
         public Population(int populationSize, string targetGoal, double mutationRate)
         {
-            int currentSize = 0;
             this.targetGoal = targetGoal;
             this.mutationRate = mutationRate;
+            createNewPopulation(populationSize);
+        }
+
+        void createNewPopulation(int populationSize)
+        {
+            currentPopulation = new List<DNA>();
+            int currentSize = 0;
+            
             //create population with random genes.
             while (currentSize++ < populationSize)
             {
@@ -73,12 +80,12 @@ namespace CS4470_Genetics
             //Add each gene to mating pool based off fitness.
             foreach (var dna in currentPopulation)
             {
-                if (dna.fitness > 0)
-                {
-                    Console.WriteLine("fitness found: \n\t{0}\n\t{1} ", dna.ToString(), targetGoal);
-                }
-                int n = (int)Math.Round(dna.fitness * 1000);
-                for (int i = 0; i <= n; i++)
+                //if (dna.fitness > 0)
+                //{
+                //    Console.WriteLine("fitness found: \n\t{0}\n\t{1} ", dna.ToString(), targetGoal);
+                //}
+                int n = (int)Math.Round(dna.fitness * 100);
+                for (int i = 0; i < n; i++)
                 {
                     matingPool.Add(dna);
                 }
@@ -88,20 +95,26 @@ namespace CS4470_Genetics
         //Go through the mating pool and create a new population.
         public void generateNextPopulation()
         {
-
-            for (int i = 0; i < currentPopulation.Count; i++)
+            if (matingPool.Count > 0)
             {
-                int a = r.Next(0, matingPool.Count - 1);
-                int b = r.Next(0, matingPool.Count - 1);
-                DNA parentA = matingPool[a];
-                DNA parentB = matingPool[b];
-                DNA child = parentA.crossover(parentB);
-                child.mutate(mutationRate);
-                currentPopulation[i] = child;
+                for (int i = 0; i < currentPopulation.Count; i++)
+                {
+                    int a = r.Next(0, matingPool.Count - 1);
+                    int b = r.Next(0, matingPool.Count - 1);
+                    DNA parentA = matingPool[a];
+                    DNA parentB = matingPool[b];
+                    DNA child = parentA.crossover(parentB);
+                    child.mutate(mutationRate);
+                    currentPopulation[i] = child;
+                }
+            }
+            //Population had no good genes create a new population.
+            else
+            {
+                createNewPopulation(currentPopulation.Count);
             }
 
             generations++;
-
         }
 
         void evalutePopulation() { }

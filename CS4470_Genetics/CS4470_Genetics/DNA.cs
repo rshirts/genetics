@@ -15,7 +15,7 @@ namespace CS4470_Genetics
         public char[] genes;
         //This tells us how close we are to the actual target goal.
         public double fitness = 0;
-        Random r = new Random();
+        //Random r = new Random();
 
         public override string ToString()
         {
@@ -53,7 +53,7 @@ namespace CS4470_Genetics
         {
             //only use standard chars and space and period
             //int randomChar = r.Next(22, 126);
-            int randomChar = r.Next(63, 122);
+            int randomChar = Population.r.Next(63, 122);
             //add space
             if (randomChar == 63) randomChar = 32;
             //add period
@@ -89,27 +89,42 @@ namespace CS4470_Genetics
 
             //select the two points of crossover and put them in order.
             // always keep the left and right side the same.
-            int selection1 = r.Next(1, genes.Length - 1);
-            int selection2 = r.Next(1, genes.Length - 2);
-            int leftSlice = 0;
-            int rightSlice = 0;
-            if (selection1 <= selection2)
-            {
-                leftSlice = selection1;
-                rightSlice = selection2;
-            }
-            else
-            {
-                leftSlice = selection2;
-                rightSlice = selection1;
-            }
+            //    int selection1 = r.Next(1, genes.Length - 2);
+            //    int selection2 = r.Next(1, genes.Length - 2);
+            //    int leftSlice = 0;
+            //    int rightSlice = 0;
+            //    if (selection1 <= selection2)
+            //    {
+            //        leftSlice = selection1;
+            //        rightSlice = selection2;
+            //    }
+            //    else
+            //    {
+            //        leftSlice = selection2;
+            //        rightSlice = selection1;
+            //    }
+
+            //    //perform the crossover of genes between the two DNA
+            //    for(int i = 0; i < genes.Length; i++)
+            //    {
+            //        if( i <= leftSlice || i > rightSlice )
+            //        {
+            //            child.genes[i] = genes[i]; 
+            //        }
+            //        else
+            //        {
+            //            child.genes[i] = partner.genes[i];
+            //        }
+            //    }
+
+            int selection = Population.r.Next(1, genes.Length - 1);
 
             //perform the crossover of genes between the two DNA
-            for(int i = 0; i < genes.Length; i++)
+            for (int i = 0; i < genes.Length; i++)
             {
-                if( i <= leftSlice || i > rightSlice )
+                if (i <= selection)
                 {
-                    child.genes[i] = genes[i]; 
+                    child.genes[i] = genes[i];
                 }
                 else
                 {
@@ -126,7 +141,7 @@ namespace CS4470_Genetics
             int randomValue = 0;
             for (int i = 0; i < genes.Length; i++)
             {
-                randomValue = r.Next(1, 100);
+                randomValue = Population.r.Next(1, 100);
                 if (randomValue <= applyMutation)
                 {
                     genes[i] = randomChar();
