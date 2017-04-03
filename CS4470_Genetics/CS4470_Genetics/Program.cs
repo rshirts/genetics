@@ -12,11 +12,9 @@ namespace CS4470_Genetics
         {
             string targetString = "Match this string";
             int maxPopulation = 200;
-            double mutationRate = 0.05;
+            double mutationRate = 0.01;
 
             Population population = new Population(maxPopulation, targetString, mutationRate);
-
-            Console.WriteLine("Target String: {0}, Max Population: {1}, Mutation Rate: {2}", targetString, maxPopulation, mutationRate);
 
             while(population.targetFound == false)
             {
@@ -26,6 +24,7 @@ namespace CS4470_Genetics
                 Console.WriteLine(population.bestFitnessDNA.ToString());
             }
 
+            Console.WriteLine("Target String: {0}, Max Population: {1}, Mutation Rate: {2}", targetString, maxPopulation, mutationRate);
             Console.WriteLine("Found target in {0} generations.", population.generations);
 
         }

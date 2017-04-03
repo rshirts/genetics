@@ -55,6 +55,9 @@ namespace CS4470_Genetics
         //calculate the fitness of each DNA in the population.
         public void calculateFitness()
         {
+            //reset values
+            bestFitnessDNA = null;
+            bestFitnessLevel = 0;
             //foreach (var dna in currentPopulation)
             for(int i = 0; i < currentPopulation.Count; i++)
             {
