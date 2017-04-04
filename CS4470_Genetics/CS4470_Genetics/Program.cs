@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,8 +14,11 @@ namespace CS4470_Genetics
             string targetString = "Match this string";
             int maxPopulation = 200;
             double mutationRate = 0.01;
+            Stopwatch stopwatch = new Stopwatch();
 
             Population population = new Population(maxPopulation, targetString, mutationRate);
+
+            stopwatch.Start();
 
             while(population.targetFound == false)
             {
@@ -24,9 +28,11 @@ namespace CS4470_Genetics
                 Console.WriteLine(population.bestFitnessDNA.ToString());
             }
 
+            stopwatch.Stop();
+
             Console.WriteLine("Target String: {0}, Max Population: {1}, Mutation Rate: {2}", targetString, maxPopulation, mutationRate);
             Console.WriteLine("Found target in {0} generations.", population.generations);
-
+            Console.WriteLine("Total time to find solution: {0}", stopwatch.Elapsed);
         }
     }
 }

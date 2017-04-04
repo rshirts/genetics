@@ -42,6 +42,9 @@ namespace CS4470_Genetics
             }
         }
 
+        /// <summary>
+        /// This will return the best solution so far.
+        /// </summary>
         public override string ToString()
         {
             string returnMe = null;
@@ -58,7 +61,7 @@ namespace CS4470_Genetics
             //reset values
             bestFitnessDNA = null;
             bestFitnessLevel = 0;
-            //foreach (var dna in currentPopulation)
+
             for(int i = 0; i < currentPopulation.Count; i++)
             {
                 currentPopulation[i].calculateFitness(ref targetGoal);
@@ -83,10 +86,6 @@ namespace CS4470_Genetics
             //Add each gene to mating pool based off fitness.
             foreach (var dna in currentPopulation)
             {
-                //if (dna.fitness > 0)
-                //{
-                //    Console.WriteLine("fitness found: \n\t{0}\n\t{1} ", dna.ToString(), targetGoal);
-                //}
                 int n = (int)Math.Round(dna.fitness * 100);
                 for (int i = 0; i < n; i++)
                 {
