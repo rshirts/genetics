@@ -30,7 +30,7 @@ namespace CS4470_Genetics
 
             stopwatch.Stop();
 
-            Console.WriteLine("Target String: {0}, Max Population: {1}, Mutation Rate: {2}", targetString, maxPopulation, mutationRate);
+            Console.WriteLine("Target String of : {0}, Max Population: {1}, Mutation Rate: {2}\nUsing double point crossover and 102 chars per gene.", targetString, maxPopulation, mutationRate);
             Console.WriteLine("Found target in {0} generations.", population.generations);
             Console.WriteLine("Total time to find solution: {0}", stopwatch.Elapsed);
         }
